@@ -9,7 +9,7 @@ int main() {
     scanf("%d", &countdown_timer);
 
     for (int i = countdown_timer; i >= 0; i--) {
-        printf("%d\r", i); // \r for carriage return, overwrites previous number
+        printf("%d\r", i);// overwrites previous number
         fflush(stdout);
         sleep(1);
     }
