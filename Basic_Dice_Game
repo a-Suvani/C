@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
+
+void quit() {
+    printf(" ! Quitting the game !\n");
+    exit(0);
+}
+
+int random_number() {
+    return rand() % 6 + 1;
+}
+
+void logic(int guess, int bet, int *balance) {
+    int random_num = random_number();
+    printf("The random number that was generated was: %d\n", random_num);
+
+    if (random_num == guess) {
+        printf("Your guess was correct!\n");
+        *balance += bet * 3;
+    } else {
+        printf("Sorry! Better luck next time!\n");
+        *balance -= bet;
+    }
+}
+
+int main() {
+    srand(time(NULL));
+    int balance = 1000;
+    int bet;
+    int guess;
+
+    while (balance > 0) {
+        printf("Your balance is: %d\n", balance);
+        printf("Bet please: ");
+        scanf("%d", &bet);
+
+        if (bet > balance) {
+            printf("Insufficient balance!\n");
+            continue;
+        }
+
+        printf("Guess the number between 1 & 6 (or type '0' to quit): ");
+        scanf("%d", &guess);
+
+        if (guess == 0) {
+            quit();
+        }
+
+        if (guess < 1 || guess > 6) {
+            printf("Invalid guess! Please guess a number between 1 and 6.\n");
+            continue;
+        }
+
+        logic(guess, bet, &balance);
+
+        sleep(2); // Pause the game for 2 seconds
+    }
+
+    printf("You've run out of money! Game over.\n");
+    return 0;
+}
+
+/*
+QUESTION -1: CREATING A SIMPLE DICE GAME
+
+WE ARE GOING TO CODE A SIMPLE DICE GAME AND IN THAT WAY WE WILL BE LEARNING ARITHMETIC OPERATIONS, STRING OPERATIONS, RANDOM NUMBERS, IF-ELSE STATEMENTS, AS WELL AS WHILE LOOPS.
+
+INFORMATION:
+
+DEVELOP A GAME WHERE YOU HAVE $1000 FROM THE START. YOU BET AND THROW THE DICE AND EITHER LOSE THE BET OR YOU WIN AND TRIPLE YOUR BET. THE GOAL OF THE GAME IS TO WIN AS MUCH MONEY AS POSSIBLE AND THEN QUIT.
+
+PLAYING:
+
+CODE A COUPLE OF POINTS ON THE INSTRUCTIONS BELOW THEN COMPILE AND TRY OUT YOUR PROGRAM.
+THEN CONTINUE ON WITH MORE CODING PROJECTS.
+
+INSTRUCTIONS:
+
+1. CREATE A VARIABLE NAMED 'balance' AND ASSIGN THE VALUE 1000.
+2. ASK THE USER TO BET.
+3. READ THE BET INTO THE VARIABLE 'bet'.
+4. ASK THE USER FOR A GUESS BETWEEN ONE AND SIX, AND TELL THE USER TO GUESS ZERO IN ORDER TO QUIT.
+5. IF THE GUESS IS ZERO, THEN QUIT THE GAME.
+6. PAUSE THE GAME FOR TWO SECONDS.
+7. GENERATE A RANDOM NUMBER BETWEEN ONE AND SIX, AND PUT THE VALUE IN THE VARIABLE 'dice'.
+8. CHECK IF THE GUESS MATCHES THE DICE.
+   - IF THEY DON'T MATCH, SUBTRACT THE BET FROM THE BALANCE.
+   - IF THEY DO MATCH, MULTIPLY THE BET BY 3 AND ADD THAT TO THE BALANCE.
+9. IF THE BALANCE IS 0, QUIT THE GAME.
+*/
