@@ -1,2 +1,2 @@
-# C
+🎀 C Codes 🎀
 Some C codes :)
